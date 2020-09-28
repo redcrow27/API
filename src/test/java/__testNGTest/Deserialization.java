@@ -1,5 +1,8 @@
+package __testNGTest;
+
 import io.restassured.RestAssured;
 import io.restassured.http.*;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
@@ -42,7 +45,6 @@ public class Deserialization {
         name.forEach(a -> System.out.println(a));
     }
 
-
     @Test
     void test03() {
         List<String> ids = given()
@@ -54,6 +56,51 @@ public class Deserialization {
 
         ids.forEach(a -> System.out.println(a));
     }
+
+    // NOTE: Parse using .jsonPath method
+
+    @Test
+    void test04() {
+        String companyName = given()
+                .get("https://jsonplaceholder.typicode.com/users/1")
+                .jsonPath()
+                .get("company.name");
+
+        System.out.println(companyName);
+
+    }
+
+    @Test(description = "using objects Response and JsonPath")
+    void test05() {
+        Response response = given()
+                .get("https://jsonplaceholder.typicode.com/users/1");
+        JsonPath jsonPath = response.jsonPath();
+
+        System.out.println(jsonPath.getString("address.geo.lat"));
+    }
+
+
+    @Test
+    void test06() {
+        List<String> companyNames = given()
+                .get("https://jsonplaceholder.typicode.com/users")
+                .jsonPath()
+                .getList("company.name");
+
+        companyNames.forEach(a -> System.out.println(a));
+    }
+
+    @Test
+    void test07() {
+        Map<String, String> address = given()
+                .get("https://jsonplaceholder.typicode.com/users/1")
+                .jsonPath()
+                .getMap("address");
+
+        System.out.println(address.get("street"));
+        System.out.println(address.get("zipcode"));
+    }
+
 
 
 }

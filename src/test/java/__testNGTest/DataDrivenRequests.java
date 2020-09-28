@@ -1,3 +1,5 @@
+package __testNGTest;
+
 import io.restassured.RestAssured;
 import io.restassured.http.*;
 import io.restassured.response.Response;
@@ -32,6 +34,7 @@ public class DataDrivenRequests {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", courseName);
         jsonObject.put("duration", duration);
+
         given()
                 .contentType(ContentType.JSON)
                 .body(jsonObject)

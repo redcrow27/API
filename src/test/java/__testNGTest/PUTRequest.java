@@ -1,3 +1,5 @@
+package __testNGTest;
+
 import io.restassured.RestAssured;
 import io.restassured.http.*;
 import io.restassured.response.Response;
@@ -60,6 +62,7 @@ public class PUTRequest {
         instructor.put("firstName", "777");
         instructor.put("lastName", "7777");
         instructor.put("email", "7777777777777@gg.com");
+
         given()
                 .header("content-type", ContentType.JSON)
                 .header("Authorization", "d03e989018msh7f4691c614e87a9p1a8181j")
